@@ -4,7 +4,7 @@
     {        
         static void Main(string[] args)
         {
-            
+            Solutions_DemoEGE07.Solution_6();
         }
     }
 }
