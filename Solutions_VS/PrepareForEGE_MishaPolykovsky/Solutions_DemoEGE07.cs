@@ -217,7 +217,7 @@ namespace PrepareForEGE_MishaPolykovsky
                         s += q.ToString();
                 }                
             }
-        } //не робит страшилка
+        } //не робит страшилка, просто неккоретный цикл, надо делать рекурсию
 
         internal static void Solution_24()
         {
