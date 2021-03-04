@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace PrepareForEGE_MishaPolykovsky
 {
@@ -88,6 +87,19 @@ namespace PrepareForEGE_MishaPolykovsky
                 }
 
             Console.WriteLine(count);
+        }
+
+        internal static void Solution_174()
+        {
+            string s = "1" + string.Join("", Enumerable.Repeat("0", 75).ToArray()); //черная магия линки:))
+
+            while (s.Contains("10") || s.Contains("1"))
+                if (s.Contains("10"))
+                    s = s.Replace("10", "001");
+                else
+                    s = s.Replace("1", "00");
+
+            Console.WriteLine(s.Count(str => str == '0')); //черная магия линки:))
         }
     }
 }
