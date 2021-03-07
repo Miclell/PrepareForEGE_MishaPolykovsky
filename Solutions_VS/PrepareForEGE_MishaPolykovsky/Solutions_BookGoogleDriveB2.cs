@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Numerics;
-using System.Text;
 
 namespace PrepareForEGE_MishaPolykovsky
 {
@@ -50,12 +49,12 @@ namespace PrepareForEGE_MishaPolykovsky
                     (n.ToString()[1] != n.ToString()[2]) &&
                     (n.ToString()[1] != n.ToString()[3]) &&
                     (n.ToString()[2] != n.ToString()[3]) &&
-                    ((n.ToString()[0] % 2 == 0) && (n.ToString()[1] % 2 == 0) ||
-                    (n.ToString()[0] % 2 != 0) && (n.ToString()[1] % 2 != 0)) &&
-                    ((n.ToString()[1] % 2 == 0) && (n.ToString()[2] % 2 == 0) ||
-                    (n.ToString()[1] % 2 != 0) && (n.ToString()[2] % 2 != 0)) &&
-                    ((n.ToString()[2] % 2 == 0) && (n.ToString()[3] % 2 == 0) ||
-                    (n.ToString()[2] % 2 != 0) && (n.ToString()[3] % 2 != 0)))
+                    ((n.ToString()[0] % 2 == 0) && (n.ToString()[1] % 2 != 0) ||
+                    (n.ToString()[0] % 2 != 0) && (n.ToString()[1] % 2 == 0)) &&
+                    ((n.ToString()[1] % 2 == 0) && (n.ToString()[2] % 2 != 0) ||
+                    (n.ToString()[1] % 2 != 0) && (n.ToString()[2] % 2 == 0)) &&
+                    ((n.ToString()[2] % 2 == 0) && (n.ToString()[3] % 2 != 0) ||
+                    (n.ToString()[2] % 2 != 0) && (n.ToString()[3] % 2 == 0)))
                     return true;
 
                 return false;
@@ -216,12 +215,10 @@ namespace PrepareForEGE_MishaPolykovsky
 
         internal static void Solution_25()
         {
-            int count = 0;
-
             for (int i = 550; i <= 600; i++)
             {
                 bool flag = true;
-                for (int j = 2; j < i / 2; j++)
+                for (int j = 2; j <= i / 2; j++)
                 {
                     if (i % j == 0)
                         flag = false;
