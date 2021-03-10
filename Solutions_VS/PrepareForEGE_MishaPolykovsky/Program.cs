@@ -4,6 +4,7 @@
     {        
         static void Main(string[] args)
         {
+            Solutions_BookGoogleDriveB2.Solution_27();
         }
     }
 }
