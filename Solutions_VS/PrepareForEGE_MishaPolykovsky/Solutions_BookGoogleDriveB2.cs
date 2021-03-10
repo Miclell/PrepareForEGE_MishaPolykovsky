@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Numerics;
 using System.IO;
-using System.Linq;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 namespace PrepareForEGE_MishaPolykovsky
 {
@@ -213,17 +210,6 @@ namespace PrepareForEGE_MishaPolykovsky
         }
 
         internal static void Solution_24()
-        {
-            string s = File.ReadAllText(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Solutions\PrepareForEGE_MishaPolykovsky\24.txt");
-
-            var m = new Regex(@"([\w])").Matches(s);
-            var strm = new Match[m.Count];
-            m.CopyTo(strm, 0);
-            Console.WriteLine(strm.OrderBy(x => x.Length).Count());
-        } // страшилка P.S. Сан Саныч, если вы знаете как это сделать в одну строчку при помощи страшных методов - то скажите пожалуйста)
-          // я просто пытался сделать через регулярные выражения и LINQ, но посчиать то, что мне надо так и не получилось(
-
-        internal static void Solution_24_Adekvat()
         {
             string s = File.ReadAllText(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Solutions\PrepareForEGE_MishaPolykovsky\Others_Solutions\Решения из книги\24\24.txt");
 
