@@ -221,11 +221,11 @@ namespace PrepareForEGE_MishaPolykovsky
             m.CopyTo(strm, 0);
             Console.WriteLine(strm.OrderBy(x => x.Length).Count());
         } // страшилка P.S. Сан Саныч, если вы знаете как это сделать в одну строчку при помощи страшных методов - то скажите пожалуйста)
-                                              // я просто пытался сделать через регулярные выражения и LINQ, но посчиать то, что мне надо так и не получилось(
+          // я просто пытался сделать через регулярные выражения и LINQ, но посчиать то, что мне надо так и не получилось(
 
         internal static void Solution_24_Adekvat()
         {
-            string s = File.ReadAllText(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Solutions\PrepareForEGE_MishaPolykovsky\24.txt");
+            string s = File.ReadAllText(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Solutions\PrepareForEGE_MishaPolykovsky\Others_Solutions\Решения из книги\24\24.txt");
 
             int max = 0, count = 0;
             char lastChar = s[0];
@@ -233,15 +233,18 @@ namespace PrepareForEGE_MishaPolykovsky
             {
                 if (s[i] == lastChar)
                     count++;
-                else if (count > max) 
+                else
                 {
                     lastChar = s[i];
-                    max = count; 
-                    count = 0; 
+
+                    if (count > max)
+                        max = count;
+
+                    count = 1;
                 }
             }
 
-            if (count > max) 
+            if (count > max)
                 max = count;
 
             Console.WriteLine(max);
@@ -265,20 +268,24 @@ namespace PrepareForEGE_MishaPolykovsky
 
         internal static void Solution_27()
         {
-            string[] s = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Solutions\PrepareForEGE_MishaPolykovsky\zad27.txt");
+            string[] s = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Solutions\PrepareForEGE_MishaPolykovsky\Others_Solutions\Решения из книги\27\zad27.txt");
 
-            string[] maxPair = new[] { "0", "0", "0" };
-            for (int i = 1; i < s.Length; i++)
+            int[] ss = new int[s.Length];
+            for (int i = 0; i < s.Length; i++)
+                ss[i] = int.Parse(s[i]);
+
+            int[] maxPair = new[] { 0, 0, 0 };
+            for (int i = 1; i < ss.Length; i++)
             {
-                for (int j = 1; j < s.Length; j++)
+                for (int j = i + 1; j < ss.Length; j++)
                 {
-                    if (((Convert.ToInt32(s[i]) % 25 == 0) || (Convert.ToInt32(s[j]) % 25 == 0)) && 
-                        ((Convert.ToInt32(s[i]) - Convert.ToInt32(s[j])) % 2 == 0) && 
-                        ((Convert.ToInt32(s[i]) + Convert.ToInt32(s[j])) > Convert.ToInt32(maxPair[2])))
+                    if (((ss[i] % 25 == 0) || (ss[j] % 25 == 0)) && // смотрим делится хотя бы один из элементов на 25
+                        (Math.Abs(ss[i] - ss[j]) % 2 == 0) && // смотрим четна ли разность
+                        ((ss[i]) + ss[j]) > maxPair[2]) // если больше суммы максимальной пары
                     {
-                        maxPair[0] = s[i];
-                        maxPair[1] = s[j];
-                        maxPair[2] = (Convert.ToInt32(s[i]) + Convert.ToInt32(s[j])).ToString();
+                        maxPair[0] = ss[i];
+                        maxPair[1] = ss[j];
+                        maxPair[2] = ss[i] + ss[j];
                     }
                 }
             }
