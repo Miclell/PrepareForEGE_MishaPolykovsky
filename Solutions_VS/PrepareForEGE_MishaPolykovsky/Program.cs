@@ -1,4 +1,6 @@
-﻿namespace PrepareForEGE_MishaPolykovsky
+﻿using System;
+
+namespace PrepareForEGE_MishaPolykovsky
 {
     class Program
     {        
