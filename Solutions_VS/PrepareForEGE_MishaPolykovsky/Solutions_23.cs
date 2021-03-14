@@ -4,6 +4,9 @@ namespace PrepareForEGE_MishaPolykovsky
 {
     internal class Solutions_23
     {
+        internal static void Start(object use = null, ISolution.StartupOptions startupOptions = ISolution.StartupOptions.Include) =>
+            ISolution.Start(new Solutions_23(), use, startupOptions);
+
         internal static void Solution_23()
         {
             int[] a = new int[31];

@@ -1,47 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace PrepareForEGE_MishaPolykovsky
 {
     internal class Solutions_25
     {
-        internal static void Start(object n = null)
-        {
-            if (n == null)
-            {
-                Solutions_25 obj = new Solutions_25();
+        internal static void Start(object use = null, ISolution.StartupOptions startupOptions = ISolution.StartupOptions.Include) =>
+            ISolution.Start(new Solutions_25(), use, startupOptions);
 
-                foreach (MethodInfo method in obj.GetType().GetMethods(BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Static | BindingFlags.NonPublic))
-                {
-                    if (method.Name != "Start")
-                    {
-                        Console.WriteLine("Номер " + (method.Name[^2].ToString() + method.Name[^1].ToString()).Trim('_') + ":");
-                        try { method.Invoke(obj, null); }
-                        catch { };
-                        Console.WriteLine();
-                    }
-                }
-            }
-            else
-            {
-                Solutions_25 obj = new Solutions_25();
-                MethodInfo method = obj.GetType().GetMethod("Solution_" + n, BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Static | BindingFlags.NonPublic);
-
-                try
-                {
-                    Console.WriteLine("Номер " + (method.Name[^2].ToString() + method.Name[^1].ToString()).Trim('_') + ":");
-                    method.Invoke(obj, null);
-                }
-                catch (NullReferenceException)
-                {
-                    Console.WriteLine("Такого решения нема :(");
-                }
-            }
-        }
-
-        private static void Solution_128()
+        internal static void Solution_128()
         {
             //4234679 10157812
             static bool Check(int x)
@@ -60,8 +28,8 @@ namespace PrepareForEGE_MishaPolykovsky
                 if (Check(i))
                     Console.WriteLine($"{(int)Math.Pow(i, 4)} {new List<int>() { i, (int)Math.Pow(i, 2), (int)Math.Pow(i, 3)}.Max()}");
         }
-
-        private static void Solution_129()
+        
+        internal static void Solution_129()
         {
             //12034679 23175821
             static bool Check(int x)
@@ -80,8 +48,8 @@ namespace PrepareForEGE_MishaPolykovsky
                 if (Check(i))
                     Console.WriteLine($"{(int)Math.Pow(i, 4)} {new List<int>() { i, (int)Math.Pow(i, 2), (int)Math.Pow(i, 3)}.Max()}");
         }
-
-        private static void Solution_130()
+        
+        internal static void Solution_130()
         {   
             //50034679 92136895
             static bool Check(int x)
@@ -111,8 +79,8 @@ namespace PrepareForEGE_MishaPolykovsky
                     Console.WriteLine($"{x} {new List<int>() { i , (int)Math.Pow(i, 2), (int)Math.Pow(i, 3) }.Max()}");
             }
         }
-
-        private static void Solution_143()
+        
+        internal static void Solution_143()
         {
             //33333 55555
             static bool Check(int x)

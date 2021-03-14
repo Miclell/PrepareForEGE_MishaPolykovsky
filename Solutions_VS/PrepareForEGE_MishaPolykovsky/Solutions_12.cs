@@ -5,6 +5,9 @@ namespace PrepareForEGE_MishaPolykovsky
 {
     internal class Solutions_12
     {
+        internal static void Start(object use = null, ISolution.StartupOptions startupOptions = ISolution.StartupOptions.Include) =>
+               ISolution.Start(new Solutions_12(), use, startupOptions);
+
         internal static void Solution_78()
         {
             static bool Check(int i, int j, int goI, int goJ)

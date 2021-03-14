@@ -6,6 +6,9 @@ namespace PrepareForEGE_MishaPolykovsky
 {
     internal class Solutions_2
     {
+        internal static void Start(object use = null, ISolution.StartupOptions startupOptions = ISolution.StartupOptions.Include) =>
+            ISolution.Start(new Solutions_2(), use, startupOptions);
+
         internal static void Solution_184()
         {
             var table = new[] { false, true };

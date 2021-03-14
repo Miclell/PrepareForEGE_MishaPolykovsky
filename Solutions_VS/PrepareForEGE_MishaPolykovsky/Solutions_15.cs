@@ -4,10 +4,8 @@ namespace PrepareForEGE_MishaPolykovsky
 {
     internal class Solutions_15
     {
-        internal static void Solution()
-        {
-
-        }
+        internal static void Start(object use = null, ISolution.StartupOptions startupOptions = ISolution.StartupOptions.Include) =>
+            ISolution.Start(new Solutions_15(), use, startupOptions);
 
         internal static void Solution_120()
         {

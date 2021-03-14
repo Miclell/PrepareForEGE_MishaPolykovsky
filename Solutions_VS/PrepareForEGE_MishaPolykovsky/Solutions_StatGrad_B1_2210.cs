@@ -10,43 +10,12 @@ namespace PrepareForEGE_MishaPolykovsky
 {
     internal class Solutions_StatGrad_B1_2210
     {
-        //это мое извращенство, позволяющие запустить все методы класса в одну строчку и упрощающие вызов методов
-        //правда оно сейчас еще немного багает
-        internal static void Start(object n = null)
+        internal static void Start(object use = null, ISolution.StartupOptions startupOptions = ISolution.StartupOptions.Include)
         {
-            if (n == null)
-            {
-                Solutions_StatGrad_B1_2210 obj = new Solutions_StatGrad_B1_2210();
-
-                foreach (MethodInfo method in obj.GetType().GetMethods(BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Static | BindingFlags.NonPublic))
-                {
-                    if (method.Name != "Start")
-                    {
-                        Console.WriteLine("Номер " + (method.Name[^2].ToString() + method.Name[^1].ToString()).Trim('_') + ":");
-                        try { method.Invoke(obj, null); }
-                        catch { };
-                        Console.WriteLine();
-                    }
-                }
-            }
-            else
-            {
-                Solutions_StatGrad_B1_2210 obj = new Solutions_StatGrad_B1_2210();
-                MethodInfo method = obj.GetType().GetMethod("Solution_" + n, BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Static | BindingFlags.NonPublic);
-
-                try
-                {
-                    Console.WriteLine("Номер " + (method.Name[^2].ToString() + method.Name[^1].ToString()).Trim('_') + ":");
-                    method.Invoke(obj, null);
-                }
-                catch (NullReferenceException)
-                {
-                    Console.WriteLine("Такого решения нема :(");
-                }
-            }
+            ISolution.Start(new Solutions_StatGrad_B1_2210(), use, startupOptions);
         }
 
-        private static void Solution_2()
+        internal static void Solution_2()
         {
             //(w \/ ¬x) /\ (w ≡ ¬y) /\ (w → z)
 
@@ -59,7 +28,7 @@ namespace PrepareForEGE_MishaPolykovsky
                                 Console.WriteLine($"{Convert.ToInt32(w)} {Convert.ToInt32(y)} {Convert.ToInt32(z)} {Convert.ToInt32(x)}");
         }
 
-        private static void Solution_5()
+        internal static void Solution_5()
         {
             for (int i = 171; ; i++)
             {
@@ -74,7 +43,7 @@ namespace PrepareForEGE_MishaPolykovsky
             }
         }
 
-        private static void Solution_6()
+        internal static void Solution_6()
         {
             //128
             int i;
@@ -95,7 +64,7 @@ namespace PrepareForEGE_MishaPolykovsky
             Console.WriteLine(i);
         }
 
-        private static void Solution_8()
+        internal static void Solution_8()
         {
             string[] table = new[] { "А", "Н", "Д", "Р", "Е", "Й" };
 
@@ -118,7 +87,7 @@ namespace PrepareForEGE_MishaPolykovsky
             Console.WriteLine(count);
         }
 
-        private static void Solution_12()
+        internal static void Solution_12()
         {
             string s = string.Join("", Enumerable.Repeat("1", 99));
 
@@ -132,7 +101,7 @@ namespace PrepareForEGE_MishaPolykovsky
             //Regex(какое заменяем).Replace(где заменяем, на что, сколько вхождений);
         }
 
-        private static void Solution_14()
+        internal static void Solution_14()
         {
             BigInteger a = BigInteger.Pow(81, 17) + BigInteger.Pow(3, 24) - 45;
 
@@ -148,7 +117,7 @@ namespace PrepareForEGE_MishaPolykovsky
             Console.WriteLine(count);
         }
 
-        private static void Solution_15()
+        internal static void Solution_15()
         {
             //(A < 50) /\ (¬ДЕЛ(x, A) → (ДЕЛ(x, 10) → ¬ДЕЛ(x, 12)))
 
@@ -170,7 +139,7 @@ namespace PrepareForEGE_MishaPolykovsky
             }
         }
 
-        private static void Solution_16()
+        internal static void Solution_16()
         {
             //F(1) = 1;
             //F(n) = n + F(n–2), если n > 1 и при этом n нечётно;
@@ -190,25 +159,25 @@ namespace PrepareForEGE_MishaPolykovsky
             Console.WriteLine(F(60));
         }
 
-        private static void Solution_17()
+        internal static void Solution_17()
         {
-            long count = 0, max = 0;
-            for (long i = 2 * (long)Math.Pow(10, 5); i < 4 * (long)Math.Pow(10, 5) + 1; i++)
+            long count = 0, min = 400000;
+            for (long i = 200000; i < 400000 + 1; i++)
             {
                 if ((i % 7 == 0) &&
                     (i % 13 != 0) && (i % 29 != 0) &&
                     (i % 43 != 0) && (i % 101 != 0))
                 {
                     count++;
-                    if (i > max)
-                        max = i;
+                    if (i < min)
+                        min = i;
                 }
             }
 
-            Console.WriteLine($"{count} {max * (long)Math.Pow(10, 5)}");
+            Console.WriteLine($"{count} {min * 100000}");
         }
 
-        private static void Solution_18()
+        internal static void Solution_18()
         {
             string[] s = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Solutions\PrepareForEGE_MishaPolykovsky\Others_Solutions\Ст. Инф. 22.10.2020.(Ф.)\18\18.txt");
 
@@ -232,7 +201,7 @@ namespace PrepareForEGE_MishaPolykovsky
             Console.WriteLine((int)max);
         }
 
-        private static void Solution_22()
+        internal static void Solution_22()
         {
             for (int i = 0; i < 1000; i++)
             {
@@ -251,7 +220,7 @@ namespace PrepareForEGE_MishaPolykovsky
             }
         }
 
-        private static void Solution_23()
+        internal static void Solution_23()
         {
             List<int> res = new List<int>() { 0, 1 };
             for (int i = 0; i < 70; i++)
@@ -276,7 +245,7 @@ namespace PrepareForEGE_MishaPolykovsky
             Console.WriteLine(res[70]);
         }
 
-        private static void Solution_24()
+        internal static void Solution_24()
         {
 //            Определите количество строк, в которых буква E
 //            встречается чаще, чем буква A.
@@ -302,7 +271,7 @@ namespace PrepareForEGE_MishaPolykovsky
             Console.WriteLine(count);
         }
 
-        private static void Solution_25()
+        internal static void Solution_25()
         {
             //123456789 223456789
 

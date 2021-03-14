@@ -6,6 +6,9 @@ namespace PrepareForEGE_MishaPolykovsky
 {
     internal class Solutions_BookGoogleDriveB2
     {
+        internal static void Start(object use = null, ISolution.StartupOptions startupOptions = ISolution.StartupOptions.Include) =>
+            ISolution.Start(new Solutions_BookGoogleDriveB2(), use, startupOptions);
+
         internal static void Solution_2()
         {
             bool[] table = new[] { false, true };
