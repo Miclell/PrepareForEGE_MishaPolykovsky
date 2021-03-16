@@ -185,28 +185,36 @@ namespace PrepareForEGE_MishaPolykovsky
 
         internal static void Solution_123()
         {
-            Console.WriteLine(Check(new List<int>() { 2, 3, 5 }, 30));
-
             //416782; 498324
-            int max = 0, min = 498325;
-            List<int> numb = new List<int>();
-            for (int i = 416782; i < 498324; i++)
+            int max = 0, min = 498325, count = 0;
+            for (int i = 416782; i <= 498324; i++)
             {
                 List<int> dels = new List<int>();
 
-                int d;
-                for (d = 1; d * d < i; d++)
+                int k = 0, d;
+                for (d = 2; d * d < i; d++)
                 {
-                    if (d % i == 0)
-                        dels.AddRange(new List<int>() { d, i / d });
+                    if (i % d == 0)
+                    {
+                        k += 2;
+                        if (IsPrime(d))
+                            dels.Add(d);
+                        if (IsPrime(d / 2))
+                            dels.Add(d / 2);
+                    }
+
+                    if (k > 6)
+                        break;
                 }
 
                 if (d * d == i)
-                    dels.Add(d);
+                    k++;
 
-                if (Check(dels, i))
+                if ((k == 6) && (dels.Count == 3) &&
+                    (dels[0] % 10 == dels[1] % 10) && 
+                    (dels[1] % 10 == dels[2] % 10))
                 {
-                    numb.Add(i);
+                    count++;
                     if (i > max)
                         max = i;
                     if (i < min)
@@ -214,58 +222,15 @@ namespace PrepareForEGE_MishaPolykovsky
                 }
             }
 
-            Console.WriteLine($"{numb.Count} {max - min}");
+            Console.WriteLine($"{count} {max - min}");
 
-            static bool Check(List<int> dels, int n)
+            static bool IsPrime(int n)
             {
-                Dictionary<int, List<int>> coll = new Dictionary<int, List<int>>()
-                {
-                    { 0, new List<int>() },
-                    { 1, new List<int>() },
-                    { 2, new List<int>() },
-                    { 3, new List<int>() },
-                    { 4, new List<int>() },
-                    { 5, new List<int>() },
-                    { 6, new List<int>() },
-                    { 7, new List<int>() },
-                    { 8, new List<int>() },
-                    { 9, new List<int>() }
-                };
+                for (int d = 2; d * d <= n; d++)
+                    if (n % d == 0)
+                        return false;
 
-                for (int i = 0; i < 10; i++)
-                {
-                    foreach (var item in dels)
-                    {
-                        if (item % 10 == i)
-                            coll[i].Add(item);
-                    }
-                }
-
-                for (int i = 0; i < 10; i++)
-                    for (int j = 0; j < coll[i].Count; j++)
-                        for (int f = j + 1; f < coll[i].Count; f++)
-                            for (int k = f + 1; k < coll[i].Count; k++)
-                                if (coll[i][j] * coll[i][f] * coll[i][k] == n)
-                                    return true;
-
-                Console.WriteLine(coll[2][0] * coll[3][0] * coll[5][0]);
-
-                return false;
-            }
-
-            static List<int> IsPrime(List<int> dels)
-            {
-                foreach (var del in dels)
-                {
-                    if (del <= 1)
-                        dels.Remove(del);
-
-                    for (int d = 2; d * d <= del; d++)
-                        if (del % d == 0)
-                            dels.Remove(del);
-                }
-
-                return dels;
+                return true;
             }
         }
 
