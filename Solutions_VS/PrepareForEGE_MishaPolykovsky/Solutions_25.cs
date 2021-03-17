@@ -199,8 +199,8 @@ namespace PrepareForEGE_MishaPolykovsky
                         k += 2;
                         if (IsPrime(d))
                             dels.Add(d);
-                        if (IsPrime(d / 2))
-                            dels.Add(d / 2);
+                        if (IsPrime(i / d))
+                            dels.Add(i / d);
                     }
 
                     if (k > 6)
@@ -211,7 +211,7 @@ namespace PrepareForEGE_MishaPolykovsky
                     k++;
 
                 if ((k == 6) && (dels.Count == 3) &&
-                    (dels[0] % 10 == dels[1] % 10) && 
+                    (dels[0] % 10 == dels[1] % 10) &&
                     (dels[1] % 10 == dels[2] % 10))
                 {
                     count++;
@@ -251,9 +251,9 @@ namespace PrepareForEGE_MishaPolykovsky
 
             for (int i = (int)Math.Pow(4234679, 0.25); i < (int)Math.Pow(10157812, 0.25) + 1; i++)
                 if (Check(i))
-                    Console.WriteLine($"{(int)Math.Pow(i, 4)} {new List<int>() { i, (int)Math.Pow(i, 2), (int)Math.Pow(i, 3)}.Max()}");
+                    Console.WriteLine($"{(int)Math.Pow(i, 4)} {new List<int>() { i, (int)Math.Pow(i, 2), (int)Math.Pow(i, 3) }.Max()}");
         }
-        
+
         internal static void Solution_129()
         {
             //12034679 23175821
@@ -271,11 +271,11 @@ namespace PrepareForEGE_MishaPolykovsky
 
             for (int i = (int)Math.Pow(12034679, 0.25); i < (int)Math.Pow(23175821, 0.25); i++)
                 if (Check(i))
-                    Console.WriteLine($"{(int)Math.Pow(i, 4)} {new List<int>() { i, (int)Math.Pow(i, 2), (int)Math.Pow(i, 3)}.Max()}");
+                    Console.WriteLine($"{(int)Math.Pow(i, 4)} {new List<int>() { i, (int)Math.Pow(i, 2), (int)Math.Pow(i, 3) }.Max()}");
         }
-        
+
         internal static void Solution_130()
-        {   
+        {
             //50034679 92136895
             static bool Check(int x)
             {
@@ -294,17 +294,47 @@ namespace PrepareForEGE_MishaPolykovsky
 
                 return true;
             }
-            
+
 
             for (int i = (int)Math.Pow(50034679, 0.25); i < (int)Math.Pow(92136895, 0.25) + 1; i++)
             {
                 int x = (int)Math.Pow(i, 4);
 
                 if (Check(i))
-                    Console.WriteLine($"{x} {new List<int>() { i , (int)Math.Pow(i, 2), (int)Math.Pow(i, 3) }.Max()}");
+                    Console.WriteLine($"{x} {new List<int>() { i, (int)Math.Pow(i, 2), (int)Math.Pow(i, 3) }.Max()}");
             }
         }
-        
+
+        internal static void Solution_138()
+        {
+            //1000000; 1500000
+            for (int i = 1000000; i <= 1500000; i++)
+            {
+                int d, count = 0, max = 0; ;
+
+                for (d = 1; d * d < i; d++)
+                {
+                    if (i % d == 0)
+                        if (i / d - d <= 110)
+                        {
+                            count++;
+
+                            if (i / d > max)
+                                max = i / d;
+                        }
+
+                    if (count == 3)
+                        break;
+                }
+
+                if (d * d == i)
+                    count++;
+
+                if (count >= 3)
+                    Console.WriteLine($"{i} {max}");
+            }
+        }
+
         internal static void Solution_143()
         {
             //33333 55555
@@ -323,6 +353,45 @@ namespace PrepareForEGE_MishaPolykovsky
             for (int i = 33333; i < 55555; i++)
                 if (Check(i) && (i.ToString().Sum(char.GetNumericValue) > 35))
                     Console.WriteLine($"{i} {i.ToString().Sum(char.GetNumericValue)}");
+        }
+
+        internal static void Solution_144()
+        {
+            //33333;55555
+            for (int i = 33333; i <= 55555; i++)
+            {
+                List<int> dels = new List<int>();
+
+                int d;
+                for (d = 2; d * d < i; d++)
+                {
+                    if (i % d == 0)
+                    {
+                        if (IsPrime(d))
+                            dels.Add(d);
+                        if (IsPrime(i / d))
+                            dels.Add(i / d);
+                    }
+
+                    if ((dels.Sum(x => x) >= 250) && (i % dels.Sum(x => x) == 0))
+                        break;
+                }
+
+                if ((d * d == i) && IsPrime(d * d))
+                    dels.Add(d);
+
+                if ((dels.Sum(x => x) >= 250) && (i % dels.Sum(x => x) == 0))
+                    Console.WriteLine($"{i} {dels.Sum(x => x)}");
+            }
+
+            static bool IsPrime(int n)
+            {
+                for (int d = 2; d * d <= n; d++)
+                    if (n % d == 0)
+                        return false;
+
+                return true;
+            }
         }
     }
 }
