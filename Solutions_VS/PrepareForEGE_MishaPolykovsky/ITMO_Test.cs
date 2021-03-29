@@ -74,7 +74,7 @@ namespace PrepareForEGE_MishaPolykovsky
             {
                 bool flag = true;
                 for (int x = 1; x < 1000; x++)
-                    if (((((x & 20) == 0) && ((x & 52) != 0)) || ((x & a) != 0)) == false)
+                    if ( ( (((x & 20) == 0) && ((x & 52) == 0)) || ((x & a) != 0) ) == false)
                         flag = false;
 
                 if (flag)

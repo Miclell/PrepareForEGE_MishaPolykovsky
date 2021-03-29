@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace PrepareForEGE_MishaPolykovsky
 {
@@ -26,6 +27,42 @@ namespace PrepareForEGE_MishaPolykovsky
             }
 
             Console.WriteLine(count);
+        }
+
+        internal static void Solution_75()
+        {
+            string s = "CHHCHDCCCCHHHCCCCHCCCCCCCCCCCCC";
+
+            int max = 0, k = 1;
+            for (int i = 1; i < s.Length; i++)
+                if (s[i] == s[i - 1])
+                {
+                    k += 1;
+                    max = Math.Max(k, max);
+                }
+                else
+                    k = 1;
+
+            for (int i = 1; i < s.Length; i++)
+                if (s[i] == s[i - 1])
+                {
+                    k += 1;
+                    if (k == max)
+                        Console.WriteLine($"{s[i]} {k}");
+                }
+                else
+                    k = 1;
+        }
+
+        internal static void Solution_87()
+        {
+            string s = "CHH123CHDCCCCH235HHCCCCHCCCCC5235235CCCCC2222222CCC";
+
+            Console.WriteLine(s.Split(s
+                                      .Distinct()
+                                          .Where(x => !Int32.TryParse(x.ToString(), out int y))
+                                              .ToArray(), StringSplitOptions.RemoveEmptyEntries)
+                                                  .Max());
         }
     }
 }
