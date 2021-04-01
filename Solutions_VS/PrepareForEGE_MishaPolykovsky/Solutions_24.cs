@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace PrepareForEGE_MishaPolykovsky
 {
@@ -8,6 +10,82 @@ namespace PrepareForEGE_MishaPolykovsky
         internal static void Start(object use = null, ISolution.StartupOptions startupOptions = ISolution.StartupOptions.Include)
         {
             ISolution.Start(new Solutions_24(), use, startupOptions);
+        }
+
+        internal static void Solution_1_7()
+        {
+            string s = File.ReadAllText(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\24data\k7data\k7-40.txt");
+
+            int count = 0, max = 0;
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] == 'C')
+                    count++;
+                else
+                {
+                    max = Math.Max(count, max);
+                    count = 0;
+                }
+            }
+
+            Console.WriteLine(max);
+        }
+
+        internal static void Solution_2_7()
+        {
+            string s = File.ReadAllText(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\24data\k7data\k7-40.txt");
+
+            int max = 0;
+            for (int i = 0; i < s.Length; i++)
+                max = Math.Max(s[i..].TakeWhile(x => x == 'C').Count(), max);
+
+            Console.WriteLine(max);
+        }
+
+        internal static void Solution_3_7()
+        {
+            string s = File.ReadAllText(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\24data\k7data\k7-40.txt");
+
+            Console.WriteLine(Regex.Matches(s, @"(C)\1*").Select(x => x.Value.Length).Max());
+        }
+
+        internal static void Solution_1_22()
+        {
+            string s = File.ReadAllText(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\24data\k7data\k7a-2.txt");
+
+            int max = 0;
+            for (int i = 0; i < s.Length; i++)
+                max = Math.Max(s[i..].TakeWhile(x => "ADC".Contains(x)).Count(), max);
+
+            Console.WriteLine(max);
+        }
+
+        internal static void Solution_2_22()
+        {
+            string s = File.ReadAllText(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\24data\k7data\k7a-2.txt");
+
+            Console.WriteLine(Regex.Matches(s, @"(A|C|D)\1*").Select(x => x.Value.Length).Max());
+        } //??
+
+        internal static void Solution_25()
+        {
+            string s = File.ReadAllText(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\24data\k7data\k7a-5.txt");
+
+            int count = 0, max = 0;
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] != 'C' && s[i] != 'F')
+                {
+                    count++;
+                }
+                else
+                {
+                    max = Math.Max(max, count);
+                    count = 0;
+                }
+            }
+
+            Console.WriteLine(max);
         }
 
         internal static void Solution_36()
@@ -27,6 +105,16 @@ namespace PrepareForEGE_MishaPolykovsky
             }
 
             Console.WriteLine(count);
+        }
+
+        internal static void Solution_52()
+        {
+            string s = File.ReadAllText(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\24data\k8data\k8-0.txt ");
+
+            var mh = Regex.Matches(s, @"(\w)\1*").Select(m => m.Value.Length).Max();
+            var mh2 = Regex.Matches(s, @"(\w)\1*").Where(x => x.Value.Length == mh).ToList()[0].Value.ToString()[0];
+
+            Console.WriteLine($"{mh2} {mh}");
         }
 
         internal static void Solution_75()
