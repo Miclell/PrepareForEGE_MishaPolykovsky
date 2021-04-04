@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace PrepareForEGE_MishaPolykovsky
 {
@@ -27,17 +28,27 @@ namespace PrepareForEGE_MishaPolykovsky
                 {
                     if ((methods[i].Name != "Start") && Check(methods[i].Name, use))
                     {
-                        Console.WriteLine("Номер " + (methods[i].Name[^3].ToString() + methods[i].Name[^2].ToString() + methods[i].Name[^1].ToString()).Trim('_') + ":");
+                        Console.WriteLine("Номер " + String.Join("", Regex.Matches(methods[i].Name, @"(\d)\1*").Select(x => x.Value)) + ":");
+
                         try { methods[i].Invoke(obj, null); }
-                        catch { };
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e.ToString());
+                        };
+
                         Console.WriteLine();
                     }
                 }
                 else if ((methods[i].Name != "Start") && !Check(methods[i].Name, use))
                 {
-                    Console.WriteLine("Номер " + (methods[i].Name[^3].ToString() + methods[i].Name[^2].ToString() + methods[i].Name[^1].ToString()).Trim('_') + ":");
+                    Console.WriteLine("Номер " + String.Join("", Regex.Matches(methods[i].Name, @"(\d)\1*").Select(x => x.Value)) + ":");
+
                     try { methods[i].Invoke(obj, null); }
-                    catch { };
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.ToString());
+                    };
+
                     Console.WriteLine();
                 }
                 else
@@ -50,7 +61,7 @@ namespace PrepareForEGE_MishaPolykovsky
             if (use == null)
                 return true;
 
-            if (use.Contains((methodName[^3].ToString() + methodName[^2].ToString() + methodName[^1].ToString()).Trim('_')))
+            if (use.Contains(String.Join("", Regex.Matches(methodName, @"(\d)\1*").Select(x => x.Value))))
                 return true;
 
             return false;
