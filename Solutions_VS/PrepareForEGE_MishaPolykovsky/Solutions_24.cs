@@ -33,7 +33,10 @@ namespace PrepareForEGE_MishaPolykovsky
                 for (int i = 0; i < s.Length; i++)
                 {
                     if (s[i] == 'C')
+                    {
                         count++;
+                        max = Math.Max(count, max);
+                    }
                     else
                     {
                         max = Math.Max(count, max);
@@ -44,8 +47,27 @@ namespace PrepareForEGE_MishaPolykovsky
                 Console.WriteLine(max);
             }
 
-            internal virtual void Solution_22() =>
-                throw new NotImplementedException();
+            internal virtual void Solution_22()
+            {
+                string s = File.ReadAllText(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\24data\k7data\k7a-2.txt");
+
+                int count = 0, max = 0;
+                for (int i = 0; i < s.Length; i++)
+                {
+                    if ("ADC".Contains(s[i]))
+                    {
+                        count++;
+                        max = Math.Max(count, max);
+                    }
+                    else
+                    {
+                        max = Math.Max(count, max);
+                        count = 0;
+                    }
+                }
+
+                Console.WriteLine(max);
+            }
 
             internal virtual void Solution_25()
             {
@@ -57,6 +79,7 @@ namespace PrepareForEGE_MishaPolykovsky
                     if (s[i] != 'C' && s[i] != 'F')
                     {
                         count++;
+                        max = Math.Max(count, max);
                     }
                     else
                     {
@@ -86,6 +109,25 @@ namespace PrepareForEGE_MishaPolykovsky
                 Console.WriteLine(count);
             }
 
+            internal virtual void Solution_48()
+            {
+                string s = File.ReadAllText(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\24data\k7data\k7-m23.txt");
+                Console.WriteLine(s);
+                int counter = 0, index = 0;
+                for (int i = 0; i < s.Length - 2; i++)
+                {
+                    string temp = s[i..(i + 3)];
+                    Console.WriteLine(temp);
+                    if (temp[0] <= temp[1] && temp[1] <= temp[2])
+                    {
+                        counter++;
+                        index = i;
+                    }
+                }
+
+                Console.WriteLine($"{counter} {index}");
+            }
+
             internal virtual void Solution_51()
             {
                 string s = File.ReadAllText(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\24data\k7data\k7-m26.txt");
@@ -102,10 +144,10 @@ namespace PrepareForEGE_MishaPolykovsky
             }
 
             internal virtual void Solution_52() =>
-                throw new NotImplementedException();
+                throw new NotImplementedException(); //-
 
             internal virtual void Solution_62() =>
-                throw new NotImplementedException();
+                throw new NotImplementedException(); //-
 
             internal virtual void Solution_75()
             {
@@ -115,7 +157,7 @@ namespace PrepareForEGE_MishaPolykovsky
                 for (int i = 1; i < s.Length; i++)
                     if (s[i] == s[i - 1])
                     {
-                        k += 1;
+                        k++;
                         max = Math.Max(k, max);
                     }
                     else
@@ -124,7 +166,7 @@ namespace PrepareForEGE_MishaPolykovsky
                 for (int i = 1; i < s.Length; i++)
                     if (s[i] == s[i - 1])
                     {
-                        k += 1;
+                        k++;
                         if (k == max)
                             Console.WriteLine($"{s[i]} {k}");
                     }
@@ -153,7 +195,7 @@ namespace PrepareForEGE_MishaPolykovsky
             }
 
             internal virtual void Solution_87() =>
-                throw new NotImplementedException();
+                throw new NotImplementedException(); //-
 
             internal virtual void Solution_102()
             {
@@ -176,16 +218,47 @@ namespace PrepareForEGE_MishaPolykovsky
             }
 
             internal virtual void Solution_136() =>
-                throw new NotImplementedException();
+                throw new NotImplementedException(); //-
 
             internal virtual void Solution_137() =>
-                throw new NotImplementedException();
+                throw new NotImplementedException(); //-
 
             internal virtual void Solution_140() =>
-                throw new NotImplementedException();
+                throw new NotImplementedException(); //-
 
-            internal virtual void Solution_145() =>
-                throw new NotImplementedException();
+            internal virtual void Solution_145()
+            {
+                string s = File.ReadAllText(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\24data\24-j7.txt");
+
+                bool flag = false; //true чт false нч
+                int count = 0, max = 0;
+                for (int i = 1; i < s.Length; i++)
+                {
+                    if (count == 1 || count == 0)
+                        if (s[i] % 2 == 0)
+                            flag = true;
+                        else
+                            flag = false;
+
+                    if ("13579".Contains(s[i]) && !flag)
+                    {
+                        count++;
+                        max = Math.Max(count, max);
+                    }
+                    else if ("02468".Contains(s[i]) && flag)
+                    {
+                        count++;
+                        max = Math.Max(count, max);
+                    }
+                    else
+                    {
+                        max = Math.Max(count, max);
+                        count = 1;
+                    }
+                }
+
+                Console.WriteLine(max);
+            }
         }
 
         internal class SolutionsForLinq : SolutionsForDefolt
@@ -237,12 +310,12 @@ namespace PrepareForEGE_MishaPolykovsky
                 int ch = 0, nh = 0;
                 for (int i = 0; i < s.Length; i++)
                 {
-                    ch = Math.Max(int.Parse(String.Join("", s[i..].TakeWhile(w => int.TryParse(w.ToString(), out int y) && int.Parse(w.ToString()) % 2 == 0))), ch);
-                    nh = Math.Max(int.Parse(String.Join("", s[i..].TakeWhile(w => int.TryParse(w.ToString(), out int y) && int.Parse(w.ToString()) % 2 != 0))), nh);
+                    ch = Math.Max(s[i..].TakeWhile(w => int.TryParse(w.ToString(), out int y) && int.Parse(w.ToString()) % 2 == 0).Count(), ch);
+                    nh = Math.Max(s[i..].TakeWhile(w => int.TryParse(w.ToString(), out int y) && int.Parse(w.ToString()) % 2 != 0).Count(), nh);
                 }
 
                 Console.WriteLine(Math.Max(ch, nh));
-            } //??
+            }
         }
 
         internal class SolutionsForRegex : SolutionsForDefolt
@@ -258,7 +331,7 @@ namespace PrepareForEGE_MishaPolykovsky
             {
                 string s = File.ReadAllText(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\24data\k7data\k7a-2.txt");
 
-                Console.WriteLine(Regex.Matches(s, @"[A|C|D]*").Select(x => x.Value.Length).Max());
+                Console.WriteLine(Regex.Matches(s, @"[ACD]*").Select(x => x.Value.Length).Max());
             } 
 
             internal override void Solution_52()
@@ -293,6 +366,14 @@ namespace PrepareForEGE_MishaPolykovsky
                 string[] s = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\24data\24-s1.txt");
 
                 Console.WriteLine(s.Where(v => Regex.Matches(v, @"YZ").Count > 1).Count());
+            }
+
+            internal override void Solution_145()
+            {
+                string s = File.ReadAllText(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\24data\24-j7.txt");
+
+                Console.WriteLine(Math.Max(Regex.Matches(s, @"[13579]*").Select(x => x.Value.Length).Max(), 
+                                           Regex.Matches(s, @"[02468]*").Select(x => x.Value.Length).Max()));
             }
         }
     }

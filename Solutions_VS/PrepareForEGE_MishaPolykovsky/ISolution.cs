@@ -22,15 +22,15 @@ namespace PrepareForEGE_MishaPolykovsky
                 use = toConvertUse.ToString().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
             var methods = obj.GetType().GetMethods(BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Static | BindingFlags.NonPublic);
-            for (int i = 0; i < methods.Length; i++)
+            foreach (MethodInfo mi in methods)
             {
                 if (startupOptions == StartupOptions.Include)
                 {
-                    if ((methods[i].Name != "Start") && Check(methods[i].Name, use))
+                    if ((mi.Name != "Start") && Check(mi.Name, use))
                     {
-                        Console.WriteLine("Номер " + String.Join("", Regex.Matches(methods[i].Name, @"(\d)\1*").Select(x => x.Value)) + ":");
+                        Console.WriteLine("Номер " + String.Join("", Regex.Matches(mi.Name, @"\d*").Select(x => x.Value)) + ":");
 
-                        try { methods[i].Invoke(obj, null); }
+                        try { mi.Invoke(obj, null); }
                         catch (Exception e)
                         {
                             Console.WriteLine(e.ToString());
@@ -39,11 +39,11 @@ namespace PrepareForEGE_MishaPolykovsky
                         Console.WriteLine();
                     }
                 }
-                else if ((methods[i].Name != "Start") && !Check(methods[i].Name, use))
+                else if ((mi.Name != "Start") && !Check(mi.Name, use))
                 {
-                    Console.WriteLine("Номер " + String.Join("", Regex.Matches(methods[i].Name, @"(\d)\1*").Select(x => x.Value)) + ":");
+                    Console.WriteLine("Номер " + String.Join("", Regex.Matches(mi.Name, @"\d*").Select(x => x.Value)) + ":");
 
-                    try { methods[i].Invoke(obj, null); }
+                    try { mi.Invoke(obj, null); }
                     catch (Exception e)
                     {
                         Console.WriteLine(e.ToString());
