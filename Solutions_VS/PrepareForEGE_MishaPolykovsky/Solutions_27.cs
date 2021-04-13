@@ -60,10 +60,32 @@ namespace PrepareForEGE_MishaPolykovsky
             int count = 0;
             for (int i = 1; i < a.Length; i++)
                 for (int j = i + 2; j < a.Length; j++)
-                    if (((int.Parse(a[i]) + int.Parse(a[j])) % 2 == 0) && a[(i + 1)..j].Contains("0"))
+                    if (((int.Parse(a[i]) + int.Parse(a[j])) % 2 == 0) && a[(i + 1)..j].Contains("0") && !"0".Contains(a[i]) && !"0".Contains(a[j]))
                         count++;
 
             Console.WriteLine(count);
-        } //нет ошибок, ответ почти правильный
+        }
+
+        internal static void Solution_59()
+        {
+            string[] a = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\27data\59\27-59a.txt");
+            //string[] a = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\27data\59\27-59b.txt");
+
+            List<int> rest = Enumerable.Repeat(0, 10).ToList();            
+            for (int i = 1; i < a.Length; i++)
+            {
+                List<int> restcopy = rest;
+                for (int j = 0; j < 10; j++)
+                    restcopy[(j + int.Parse(a[i])) % 10] += rest[j];
+
+                restcopy[int.Parse(a[i]) % 10]++;
+
+                //rest = restcopy;
+            }
+
+            Console.WriteLine(rest[5]);
+        } //:(((
     }
 }
+
+

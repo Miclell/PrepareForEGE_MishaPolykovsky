@@ -24,22 +24,24 @@ namespace PrepareForEGE_MishaPolykovsky
 
             var methods = type.GetType().GetMethods(BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Static | BindingFlags.NonPublic);
 
-            List<string> nonSolution = new List<string>();
+            //List<string> nonSolution = new List<string>();
 
             foreach (MethodInfo mi in methods)
             {
-                if (startupOptions == StartupOptions.Include &&
-                    mi.Name != "Start" && Check(mi.Name, use))
+                if (startupOptions == StartupOptions.Include)
                 {
-                    Console.WriteLine("Номер " + String.Join("", Regex.Matches(mi.Name, @"\d*").Select(x => x.Value)) + ":");
-
-                    try { mi.Invoke(type, null); }
-                    catch (Exception e)
+                    if (mi.Name != "Start" && Check(mi.Name, use))
                     {
-                        Console.WriteLine(e.ToString());
-                    };
+                        Console.WriteLine("Номер " + String.Join("", Regex.Matches(mi.Name, @"\d*").Select(x => x.Value)) + ":");
 
-                    Console.WriteLine();
+                        try { mi.Invoke(type, null); }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e.ToString());
+                        };
+
+                        Console.WriteLine();
+                    }
                 }
                 else if (startupOptions != StartupOptions.Include && (mi.Name != "Start") && !Check(mi.Name, use))
                 {
@@ -55,17 +57,19 @@ namespace PrepareForEGE_MishaPolykovsky
                 }
                 else
                 {
-                    nonSolution.Add(use[0]);
+                    Console.WriteLine("Такого решения нема");
                 }
             }
 
-            if (nonSolution.Count > 0)
-            {
-                nonSolution = methods.Where(x => x.Name != "Start" && !Check(x.Name, use)).Select(x => x.Name).ToList();
-                Console.WriteLine(string.Join("\n", nonSolution.Select(x => Regex.Matches(x, @"\d*").Select(x => x.Value).ToList().Count)));
-                Console.WriteLine(string.Join("\n", nonSolution.Select(x => Regex.Match(x, @"\d*", RegexOptions.Compiled).Value)));
-                Console.WriteLine(String.Join("Решения ", nonSolution.Select(x => Regex.Matches(x, @"\d*").Select(x => x.Value + " нема:("))));
-            }
+            //if (nonSolution.Count > 0)
+            //{
+            //    nonSolution = methods.Where(x => x.Name != "Start" && !Check(x.Name, use)).Select(x => x.Name).ToList();
+            //    Console.WriteLine(string.Join("\n", nonSolution.Select(x => Regex.Matches(x, @"\d*").Select(x => x.Value).ToList().Count)));
+            //    Console.WriteLine(string.Join("\n", nonSolution.Select(x => Regex.Match(x, @"\d*", RegexOptions.Compiled).Value)));
+            //    Console.WriteLine(String.Join("Решения ", nonSolution.Select(x => Regex.Matches(x, @"\d*").Select(x => x.Value + " нема:("))));
+            //}
+
+            //TODO: реализовать нормальную проверку на отсуствие методов в классее - например после запроса сразу все просканить или по мере вызовов заполнять массив с их названиями
         }
 
         private static bool Check(string methodName, string[] use = null)
