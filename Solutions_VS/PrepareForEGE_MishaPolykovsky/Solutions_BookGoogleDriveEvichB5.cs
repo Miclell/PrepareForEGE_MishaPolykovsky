@@ -212,33 +212,26 @@ namespace PrepareForEGE_MishaPolykovsky
 
         internal static void Solution_27()
         {
-            string[] s = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Solutions\PrepareForEGE_MishaPolykovsky\Others_Solutions\Решения из книги Евич\Вариант 5\Задание 27\27.txt");
-            //string[] s = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Solutions\PrepareForEGE_MishaPolykovsky\Others_Solutions\Решения из книги Евич\Вариант 5\Задание 27\27-a.txt");
+            //string[] s = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Solutions\PrepareForEGE_MishaPolykovsky\Others_Solutions\Решения из книги Евич\Вариант 5\Задание 27\27.txt");
+            string[] s = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Solutions\PrepareForEGE_MishaPolykovsky\Others_Solutions\Решения из книги Евич\Вариант 5\Задание 27\27-a.txt");
             //string[] s = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Solutions\PrepareForEGE_MishaPolykovsky\Others_Solutions\Решения из книги Евич\Вариант 5\Задание 27\27-b.txt");
 
-            Dictionary<int, List<List<int>>> dict = Enumerable.Range(1, 5000).ToDictionary(x => x, x => new List<List<int>>());
-
-            int d = Regex.Matches(s.First().ToString(), @"[0-9]+").Select(x => int.Parse(x.Value)).ToList()[1];
-
+            Dictionary<int, List<int>> dict = Enumerable.Range(1, 5000).ToDictionary(x => x, x => new List<int>());
             for (int i = 1; i < s.Length; i++)
             {
                 List<int> temp = Regex.Matches(s[i], @"[0-9]+").Select(x => int.Parse(x.Value)).ToList();
 
-                dict[temp[0]].Add(new List<int> { temp[1], temp[2], temp[3] });
+                dict[temp[0]].Add(Math.Max(temp[1], Math.Max(temp[2], temp[3])));
             }
 
-            List <float> averageResults = new List<float>();
+            int d = Regex.Matches(s.First().ToString(), @"[0-9]+").Select(x => int.Parse(x.Value)).ToList()[1];
+
+            List<float> averageResults = new List<float>();
             for (int i = 1; i <= 5000; i++)
                 if (dict[i].Count > d)
-                {
-                    int tempAverage = 0;
-                    foreach (List<int> item in dict[i])
-                        tempAverage += item.Sum();
+                    averageResults.Add((float)dict[i].Sum() / dict[i].Count);
 
-                    averageResults.Add((float)tempAverage / (dict[i].Count * 3));
-                }
-
-            Console.WriteLine(averageResults.Max() - averageResults.Min());
+            Console.WriteLine(Math.Round(averageResults.Max() - averageResults.Min(), 2));
         }
     }
 }
