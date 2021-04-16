@@ -71,20 +71,20 @@ namespace PrepareForEGE_MishaPolykovsky
             string[] a = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\27data\59\27-59a.txt");
             //string[] a = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\27data\59\27-59b.txt");
 
-            List<int> rest = Enumerable.Repeat(0, 10).ToList();            
+            List<int> rest = Enumerable.Repeat(0, 10).ToList();
             for (int i = 1; i < a.Length; i++)
             {
-                List<int> restcopy = rest;
+                List<int> restcopy = rest.TakeWhile(x => true).ToList();
                 for (int j = 0; j < 10; j++)
                     restcopy[(j + int.Parse(a[i])) % 10] += rest[j];
 
                 restcopy[int.Parse(a[i]) % 10]++;
 
-                //rest = restcopy;
+                rest = restcopy;
             }
 
             Console.WriteLine(rest[5]);
-        } //:(((
+        }
     }
 }
 
