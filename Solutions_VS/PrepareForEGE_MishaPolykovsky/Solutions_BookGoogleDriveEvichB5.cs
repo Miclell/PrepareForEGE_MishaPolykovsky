@@ -206,7 +206,7 @@ namespace PrepareForEGE_MishaPolykovsky
                     count++;
 
                 if (count >= 41 && count <= 45)
-                    Console.WriteLine(i);
+                    Console.WriteLine($"{i} {count}");
             }
         }
 
