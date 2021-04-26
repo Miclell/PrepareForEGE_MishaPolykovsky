@@ -217,6 +217,18 @@ namespace PrepareForEGE_MishaPolykovsky
                 Console.WriteLine(max);
             }
 
+            internal virtual void Solution_134()
+            {
+                string s = File.ReadAllText(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\24data\24-j3.txt");
+
+                int count = 0;
+                for (int i = 0; i < s.Length - 2; i++)
+                    if (s[i..(i + 3)] == "TIK" || s[i..(i + 3)] == "TOK")
+                        count++;
+
+                Console.WriteLine(count);
+            }
+
             internal virtual void Solution_136() =>
                 throw new NotImplementedException(); //-
 

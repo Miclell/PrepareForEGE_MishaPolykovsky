@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace PrepareForEGE_MishaPolykovsky
 {
@@ -112,6 +113,41 @@ namespace PrepareForEGE_MishaPolykovsky
             }
         }
 
+        internal static void Solution_37()
+        {
+            for (int i = 248015; i <= 251575; i += 2)
+            {
+                int d = 1, count = 0, square = 0;
+
+                while (d * d < i)
+                {
+                    if (i % d == 0)
+                    {
+                        count += 2;
+
+                        if (d * d == i)
+                            square = d;
+
+                        if ((i / d) * (i / d) == i)
+                            square = d;
+                    }
+
+                    d++;
+                }
+
+                if (d * d == i)
+                {
+                    count++;
+
+                    if (d * d == i)
+                        square = d;
+                }
+
+                if (count % 2 != 0)
+                    Console.WriteLine($"{i} {count} {square}");
+            }
+        }
+
         internal static void Solution_44()
         {
             //4837177 4837236
@@ -161,6 +197,31 @@ namespace PrepareForEGE_MishaPolykovsky
             }
         }
 
+        internal static void Solution_73()
+        {
+            int counter = 0;
+            for (int i = 2; i <= 20000; i++)
+            {
+                int d = 2, sum = 0;
+
+                while (d * d < i)
+                {
+                    if (i % d == 0)
+                        sum += d + i / d;
+
+                    d++;
+                }
+
+                if (d * d == i)
+                    sum += d;
+
+                if (sum + 1 > i)
+                    counter++;
+            }
+
+            Console.WriteLine(counter);
+        }
+
         internal static void Solution_97()
         {
             //135790; 163228
@@ -181,6 +242,79 @@ namespace PrepareForEGE_MishaPolykovsky
                 if (dels.Sum(x => x) > 460000)
                     Console.WriteLine($"{dels.Count} {dels.Sum(x => x)}");
             }
+        }
+
+        internal static void Solution_121()
+        {
+            static bool IsPrime(int x)
+            {
+                if (x <= 1)
+                    return false;
+
+                for (int d = 2; d * d <= x; d++)
+                    if (x % d == 0)
+                        return false;
+
+                return true;
+            }
+
+            static bool Check(Dictionary<int, List<int>> dels, int n)
+            {
+                bool flag = false;
+                Parallel.For(0, 10, (i, state) =>
+                {
+                    Parallel.For(0, dels[i].Count, a =>
+                    {
+                        Parallel.For(a + 1, dels[i].Count, b =>
+                        {
+                            Parallel.For(b + 1, dels[i].Count, c =>
+                            {
+                                if (dels[i][a] * dels[i][b] * dels[i][c] == n)
+                                    flag = true;
+
+                                if (flag)
+                                    state.Break();
+                            });
+                        });
+                    });
+                });
+
+                if (flag)
+                    return true;
+
+                return false;
+            }
+
+            int count = 0, min = 369454;
+            Parallel.For(318216, 369453, i =>
+            {
+                Dictionary<int, List<int>> dels = Enumerable.Range(0, 10).ToDictionary(x => x, x => new List<int>());
+
+                Parallel.For(1, i, (d, state) =>
+                {
+                    if (d * d >= i)
+                        state.Break();
+
+                    if (i % d == 0)
+                    {
+                        if (IsPrime(d))
+                            dels[d % 10].Add(d);
+
+                        if (IsPrime(i / d))
+                            dels[i / d % 10].Add(i / d);
+                    }                    
+
+                    d++;
+                });
+
+                if (Check(dels, i))
+                {
+                    min = Math.Min(i, min);
+                    count++;
+                }
+            });
+
+            Console.WriteLine($"{min} {count}");
         }
 
         internal static void Solution_123()
@@ -392,6 +526,37 @@ namespace PrepareForEGE_MishaPolykovsky
 
                 return true;
             }
+        }
+
+        internal static void Solution_160()
+        {
+            static bool IsPrime(int x)
+            {
+                if (x <= 1)
+                    return false;
+
+                for (int d = 2; d * d <= x; d++)
+                    if (x % d == 0)
+                        return false;
+
+                return true;
+            }
+
+            int count = 0;
+            for (int i = 10000000; count != 3; i--)
+                if (IsPrime(i))
+                {
+                    Console.WriteLine($"{10000000 - i} {i}");
+                    count++;
+                }
+
+            count = 0;
+            for (int i = 10000000; count != 3; i++)
+                if (IsPrime(i))
+                {
+                    Console.WriteLine($"{i - 10000000} {i}");
+                    count++;
+                }
         }
     }
 }
