@@ -44,6 +44,22 @@ namespace PrepareForEGE_MishaPolykovsky
             }
         }
 
+        internal static void Solutions_8()
+        {
+            string[] table = new[] { "К", "О", "М" };
+
+            Console.WriteLine(table.SelectMany(v => 
+                                table.SelectMany(v1 => 
+                                    table.SelectMany(v2 => 
+                                        table.SelectMany(v3 => 
+                                            table.SelectMany(v4 => 
+                                                table.Select(v5 => $"{v}{v1}{v2}{v3}{v4}{v5}")))))).
+                                                Where(item => 
+                                                    item.Count(x => x == 'К') <= 2 && 
+                                                    item[0..3].Count(x => x == 'К') == item.Count(x => x == 'К'))
+                                                        .Count());
+        }
+
         internal static void Solution_12()
         {
             string s = String.Join("", Enumerable.Repeat("7", 112));
@@ -224,7 +240,7 @@ namespace PrepareForEGE_MishaPolykovsky
                 dict[temp[0]].Add(Math.Max(temp[1], Math.Max(temp[2], temp[3])));
             }
 
-            int d = Regex.Matches(s.First().ToString(), @"[0-9]+").Select(x => int.Parse(x.Value)).ToList()[1];
+            int d = Regex.Matches(s.First(), @"[0-9]+").Select(x => int.Parse(x.Value)).ToList()[1];
 
             List<float> averageResults = new List<float>();
             for (int i = 1; i <= 5000; i++)

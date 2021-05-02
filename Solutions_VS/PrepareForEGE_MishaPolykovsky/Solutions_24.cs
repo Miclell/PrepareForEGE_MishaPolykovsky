@@ -370,7 +370,7 @@ namespace PrepareForEGE_MishaPolykovsky
             {
                 string s = File.ReadAllText(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\24data\24-j5.txt");
 
-                Console.WriteLine(Regex.Matches(s, @"([^S][T]OCK)|([S][^T]OCK)|([^S][^T]OCK)").Count());
+                Console.WriteLine(Regex.Matches(s, @"([^S]TOCK)|(S[^T]OCK)|([^S][^T]OCK)").Count());
             }
 
             internal override void Solution_140()
