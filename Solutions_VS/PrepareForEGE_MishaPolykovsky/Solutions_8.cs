@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
@@ -135,6 +136,100 @@ namespace PrepareForEGE_MishaPolykovsky
 
                 return false;
             }
+        }
+
+        internal static void Solution_184()
+        {
+            string[] table = new[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+
+            List<string> lst = new();
+            Parallel.ForEach(table, item =>
+            {
+                Parallel.ForEach(table, item1 =>
+                {
+                    Parallel.ForEach(table, item2 =>
+                    {
+                        Parallel.ForEach(table, item3 =>
+                        {
+                            Parallel.ForEach(table, item4 =>
+                            {
+                                Parallel.ForEach(table, item5 =>
+                                {
+                                    Parallel.ForEach(table, item6 =>
+                                    {
+                                        Parallel.ForEach(table, item7 =>
+                                        {
+                                            Parallel.ForEach(table, item8 =>
+                                            {
+                                                Parallel.ForEach(table, item9 =>
+                                                {
+                                                    Parallel.ForEach(table, item10 =>
+                                                    {
+                                                        Parallel.ForEach(table, item11 =>
+                                                        {
+                                                            lst.Add($"{item}{item1}{item2}{item3}{item4}{item5}{item6}{item7}{item8}{item9}{item10}{item11}");
+                                                        });
+                                                    });
+                                                });
+                                            });
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+
+            int count = 0;
+            foreach (var item in lst)
+            {
+                int counter = 0;
+                for (int i = 0; i < 11; i++)
+                {
+                    if ((item[i] > item[i + 1]) &&
+                        (item[i] % 2 != 0 && item[i + 1] % 2 == 0 ||
+                        item[i] % 2 == 0 && item[i + 1] % 2 != 0))
+                        counter++;
+                }
+
+                if (counter == 11)
+                    count++;
+            }
+
+            Console.WriteLine(count);
+        }
+
+        internal static void Solution_185()
+        {
+            string[] table = new[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+
+            List<string> lst = new();
+            foreach (var item in table)
+                foreach (var item1 in table)
+                    foreach (var item2 in table)
+                        foreach (var item3 in table)
+                            foreach (var item4 in table)
+                                foreach (var item5 in table)
+                                    lst.Add($"{item}{item1}{item2}{item3}{item4}{item5}");
+
+            int count = 0;
+            foreach (var item in lst)
+            {
+                int counter = 0; 
+                for (int i = 0; i < 5; i++)
+                {
+                    if ((item[i] > item[i + 1]) &&
+                        (item[i] % 2 != 0 && item[i + 1] % 2 == 0 ||
+                        item[i] % 2 == 0 && item[i + 1] % 2 != 0))
+                        counter++;
+                }
+
+                if (counter == 5)
+                    count++;
+            }
+
+            Console.WriteLine(count);
         }
     }
 }

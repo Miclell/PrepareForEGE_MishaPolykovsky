@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace PrepareForEGE_MishaPolykovsky
 {
@@ -318,6 +320,47 @@ namespace PrepareForEGE_MishaPolykovsky
             Console.WriteLine(a);
         }
 
+        internal static void Solution_239()
+        {
+            int min = 2000;
+            for (int aStart = 100; aStart < 200; aStart++)
+                for (int aEnd = aStart + 1; aEnd < 200; aEnd++)
+                {
+                    bool flag = true;
+                    for (double x = 1; x < 1000; x += 0.1)
+                    {
+                        if ((x < 155 || x > 177 ||
+                             x <= 130 && x >= 111 ||
+                             x <= aEnd && x >= aStart) == false)
+                            flag = false;
+                    }
+
+                    if (flag)
+                        min = Math.Min(aEnd - aStart, min);
+                }
+
+            Console.WriteLine(min);
+        }
+
+        internal static void Solution_282()
+        {
+            int max = 0;
+            for (int aStart = -1000; aStart < 1000; aStart++)
+                for (int aEnd = aStart + 1; aEnd < 1000; aEnd++)
+                {
+                    bool flag = true;
+                    for (double x = -100; x < 100; x += 0.1)
+                        if (((x > aEnd || x < aStart || x * x + 10 * x <= 144) &&
+                             (x * x + 6 * x > 112 || x <= aEnd && x >= aStart)) == false)
+                            flag = false;
+
+                    if (flag)
+                        max = Math.Max(Math.Abs(aEnd - aStart), max);
+                }
+
+            Console.WriteLine(max);
+        }
+
         internal static void Solution_296()
         {
             int a;
@@ -423,6 +466,30 @@ namespace PrepareForEGE_MishaPolykovsky
             }
 
             Console.WriteLine(a);
+        }
+
+        internal static void Soluiton_376()
+        {
+            int min = Int32.MaxValue;
+            for (int aStart = -100; aStart < 100; aStart++)
+            {
+                for (int aEnd = -100; aEnd < 100; aEnd++)
+                {
+                    bool flag = true;
+
+                    for (int x = -100; x < 100; x++)
+                    {
+                        if (((new List<int>() { 2, 4, 9, 10, 15 }.Contains(x) == (x <= aEnd && x >= aStart)) ||
+                            (new List<int>() { 3, 8, 9, 10, 20 }.Contains(x) == (x <= aEnd && x >= aStart))) == false)
+                            flag = false;
+                    }
+
+                    if (flag)
+                        min = Math.Min(Enumerable.Range(aStart, aEnd - aStart + 1).Aggregate((x, y) => x * y), min);
+                }
+            }
+
+            Console.WriteLine(min);
         }
     }
 }
