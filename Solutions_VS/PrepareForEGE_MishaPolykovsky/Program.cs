@@ -4,7 +4,6 @@
     {
         static void Main(string[] args)
         {
-            Solutions_8.Start(184);
         }
     }
 }

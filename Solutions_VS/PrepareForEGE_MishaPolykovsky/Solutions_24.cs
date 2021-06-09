@@ -271,6 +271,28 @@ namespace PrepareForEGE_MishaPolykovsky
 
                 Console.WriteLine(max);
             }
+
+            internal virtual void Solution_173()
+            {
+                string s = File.ReadAllText(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\24data\24-173.txt");
+
+                int count = 0, max = 0;
+                for (int i = 0; i < s.Length - 5; i++)
+                {
+                    if (s[i] == s[i + 3] &&
+                        s[i + 1] == s[i + 4] &&
+                        s[i + 2] == s[i + 5])
+                        count = 0;
+                    else
+                    {
+                        count++;
+
+                        max = Math.Max(count, max);
+                    }
+                }
+
+                Console.WriteLine(max + 5);
+            }
         }
 
         internal class SolutionsForLinq : SolutionsForDefolt

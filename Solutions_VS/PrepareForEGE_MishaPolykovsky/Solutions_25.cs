@@ -528,6 +528,40 @@ namespace PrepareForEGE_MishaPolykovsky
             }
         }
 
+        internal static void Solution_159()
+        {
+            static int GetDivisors(int n)
+            {
+                int count = 0, d = 1;
+
+                for (; d * d < n; d++)
+                    if (n % d == 0)
+                        count += 2;
+
+                if (d * d == n)
+                    count++;
+
+                return count;
+            }
+
+            List<Tuple<int, int>> counter = new();
+            for (int i = 700000; counter.Count != 5; i++)
+            {
+                if (counter.Count == 0)
+                    counter.Add(new Tuple<int, int>(i, GetDivisors(i)));
+                else if (counter[^1].Item2 < GetDivisors(i))
+                    counter.Add(new Tuple<int, int>(i, GetDivisors(i)));
+                else
+                {
+                    i = counter[0].Item1;
+
+                    counter.Clear();
+                }
+            }
+
+            Console.WriteLine(String.Join("\n", counter));
+        }
+
         internal static void Solution_160()
         {
             static bool IsPrime(int x)
@@ -557,6 +591,70 @@ namespace PrepareForEGE_MishaPolykovsky
                     Console.WriteLine($"{i - 10000000} {i}");
                     count++;
                 }
+        }
+
+        internal static void Solution_173()
+        {
+            static bool IsPrime(int n)
+            {
+                if (n <= 1)
+                    return false;
+
+                for (int d = 2; d * d <= n; d++)
+                    if (n % d == 0)
+                        return false;
+
+                return true;
+            }
+
+            int count = 0;
+
+
+            for (int i = 650000; count != 4; i++)
+            {
+                List<int> divs = new();
+                int d = 2;
+                for (; d * d <= i; d++)
+                    if (i % d == 0)
+                    {
+                        if (IsPrime(d))
+                            divs.Add(d);
+                        if (IsPrime(i / d))
+                            divs.Add(i / d);
+                    }
+
+                if (d * d == i && IsPrime(d))
+                    divs.Add(d);
+
+                if (divs.Count != 0)
+                {
+                    int divsSum = divs.Sum(x => x) / divs.Count;
+                    if (divsSum % 37 == 23)
+                    {
+                        count++;
+                        Console.WriteLine($"{i} {divsSum}");
+                    }
+                }
+            }
+        }
+
+        internal static void Solution_174()
+        {
+            int count = 0;
+            Tuple<int, int> max = new(0, 0);
+
+            for (int c = 1; c <= 5000; c++)
+                for (int b = 1; b <= c; b++)
+                    for (int a = 1; a <= b; a++)
+                        if (a * a + b * b == c * c)
+                        {
+                            count++;
+
+                            if (a + b + c > max.Item2)
+                                max = new Tuple<int, int>(c, a + b + c);
+                        }
+
+            Console.WriteLine($"{count} {max.Item1}");
         }
     }
 }
