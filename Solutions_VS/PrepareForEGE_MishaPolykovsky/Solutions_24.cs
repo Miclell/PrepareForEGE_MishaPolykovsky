@@ -149,6 +149,37 @@ namespace PrepareForEGE_MishaPolykovsky
             internal virtual void Solution_62() =>
                 throw new NotImplementedException(); //-
 
+            internal virtual void Solution_72()
+            {
+                string s = File.ReadAllText(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\24data\k8data\k8-0.txt");
+
+                int count = 1, max = 0;
+                for (int i = 0; i < s.Length - 1; i++)
+                {
+                    if (s[i] == s[i + 1])
+                    {
+                        count++;
+
+                        max = Math.Max(count, max);
+                    }
+                    else
+                        count = 1;
+                }
+
+                for (int i = 0; i < s.Length - 1; i++)
+                {
+                    if (s[i] == s[i + 1])
+                    {
+                        count++;
+
+                        if (max == count)
+                            Console.WriteLine($"{s[i]} {max}");
+                    }
+                    else
+                        count = 1;
+                }
+            }
+
             internal virtual void Solution_75()
             {
                 string s = File.ReadAllText(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\24data\k8data\k8-12.txt");
