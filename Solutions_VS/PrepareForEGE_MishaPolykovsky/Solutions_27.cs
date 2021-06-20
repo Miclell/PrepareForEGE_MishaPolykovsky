@@ -94,11 +94,11 @@ namespace PrepareForEGE_MishaPolykovsky
 
         internal static void Solution_8()
         {
-            //int[] s = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\27data\8\27-8a.txt")
-             //   .Select(x => int.Parse(x)).ToArray();
-
-            int[] s = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\27data\8\27-8b.txt")
+            int[] s = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\27data\8\27-8a.txt")
                 .Select(x => int.Parse(x)).ToArray();
+
+            //int[] s = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\27data\8\27-8b.txt")
+            //    .Select(x => int.Parse(x)).ToArray();
 
             Tuple<int, int> minA = new(Int32.MaxValue, 0), minB = new(Int32.MaxValue, 0);
             for (int i = 1; i < s.Length; i++)
@@ -107,12 +107,32 @@ namespace PrepareForEGE_MishaPolykovsky
                     minA = new Tuple<int, int>(s[i], i);
 
                 if (s[i] < minB.Item1 && i - minA.Item2 >= 5)
-                    minB = new Tuple<int,
-
-                    int>(s[i], i);
+                    minB = new Tuple<int, int>(s[i], i);
             }
 
             Console.WriteLine(minA.Item1 * minA.Item1 + minB.Item1 * minB.Item1);
+        }
+
+        internal static void Solution_9()
+        {
+            int[] s = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\27data\9\27-9a.txt")
+                .Select(x => int.Parse(x)).ToArray();
+
+            //int[] s = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\27data\9\27-9b.txt")
+            //    .Select(x => int.Parse(x)).ToArray();
+
+            int minA = s[1], res = Int32.MaxValue;
+            for (int i = 7; i < s.Length; i++)
+            {
+                if (s[i - 6] < minA)
+                    minA = s[i - 6];
+
+                int temp = s[i] * minA;
+                if (temp % 2 != 0 && temp < res)
+                    res = temp;
+            }
+
+            Console.WriteLine(res);
         }
 
         internal static void Solution_10()
@@ -197,12 +217,8 @@ namespace PrepareForEGE_MishaPolykovsky
                     count3++;
             }
 
-            int counter = 0;
-            for (int i = 1; i < count; i++)
-                counter += count - i;
-
-            Console.WriteLine(counter + count2 * count3);
-        } //&&&
+            Console.WriteLine(count2 * count3 + count * (s[0] - count) + count * (count - 1) / 2);
+        }
 
         internal static void Solution_14()
         {

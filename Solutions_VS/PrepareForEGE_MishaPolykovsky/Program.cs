@@ -4,7 +4,6 @@
     {
         static void Main(string[] args)
         {
-            Solutions_24.Start(1, 72);
         }
     }
 }

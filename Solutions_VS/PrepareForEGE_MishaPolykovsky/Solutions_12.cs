@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace PrepareForEGE_MishaPolykovsky
 {
@@ -103,6 +104,85 @@ namespace PrepareForEGE_MishaPolykovsky
                     s = s.Replace("1", "00");
 
             Console.WriteLine(s.Count(str => str == '0')); //черная магия линки:))
+        }
+
+        internal static void Solution_253()
+        {
+            static string Temp(string s)
+            {
+                while (s.Contains("111"))
+                {
+                    s = new Regex("111").Replace(s, "2", 1);
+
+                    s = new Regex("2222").Replace(s, "333", 1);
+
+                    s = new Regex("33").Replace(s, "1", 1);
+                }
+
+                return s;
+            }
+
+            int min = Int32.MaxValue; ;
+            for (int i = 100; i < 1000; i++)
+            {
+                string s = String.Join("", Enumerable.Repeat("1", i));
+
+                int temp = Temp(s).Count(x => x == '1');
+
+                min = temp < min ? temp : min;
+            }
+
+            for (int i = 100; i < 150; i++)
+            {
+                string s = String.Join("", Enumerable.Repeat("1", i));
+
+                int temp = Temp(s).Count(x => x == '1');
+
+                if (min == temp)
+                {
+                    Console.WriteLine(i);
+                    break;
+                }
+            }
+        }
+
+        internal static void Solution_256()
+        {
+            static string Temp(string s)
+            {
+                while (s.Contains("333") || s.Contains("111"))
+                {
+                    s = new Regex("333").Replace(s, "11", 1);
+
+                    s = new Regex("111").Replace(s, "3", 1);
+                }
+
+                return s;
+            }
+
+            string s = "", max = "";
+            for (int i = 1; i < 150; i++)
+            {
+                s = String.Join("", Enumerable.Repeat("1", i));
+
+                s = Temp(s);
+
+                if (s.Length > max.Length)
+                    max = s;
+            }
+
+            for (int i = 100; i < 150; i++)
+            {
+                s = String.Join("", Enumerable.Repeat("1", i));
+
+                s = Temp(s);
+
+                if (s.Length == max.Length)
+                {
+                    Console.WriteLine(i);
+                    break;
+                }
+            }
         }
     }
 }

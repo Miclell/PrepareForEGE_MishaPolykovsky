@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Numerics;
 
 namespace PrepareForEGE_MishaPolykovsky
@@ -59,6 +60,77 @@ namespace PrepareForEGE_MishaPolykovsky
             }
 
             Console.WriteLine($"{counter0} {counter1} {counter2}");
+        }
+
+        internal static void Solution_265()
+        {
+            int sum = 0;
+            for (int i = 2; i <= 10; i++)
+            {
+                int t = 1755;
+                string s = "";
+
+                if (i != 10)
+                    while (t != 0)
+                    {
+                        s += (t % i).ToString();
+
+                        t /= i;
+                    }
+                else
+                    s = String.Join("", t.ToString().Reverse());
+
+                bool flag = true;
+                for (int j = 0; j < 10; j++)
+                    if (s.Count(x => x == Convert.ToChar(j.ToString())) > 1)
+                        flag = false;
+
+                if (flag)
+                    sum += i;
+            }
+
+            Console.WriteLine(sum);
+        }
+
+        internal static void Solution_283()
+        {
+            int sum = 0;
+            for (int i = 2; i <= 10; i++)
+            {
+                int t = 123;
+                string s = "";
+
+                if (i != 10)
+                    while (t != 0)
+                    {
+                        s += (t % i).ToString();
+
+                        t /= i;
+                    }
+                else
+                    s = String.Join("", t.ToString().Reverse());
+
+                bool flag = true, flagArithmetiсProgress = true;
+                int d = 0;
+                for (int j = 0; j < s.Length - 1; j++)
+                {
+                    if (s[j] <= s[j + 1])
+                        flag = false;
+
+                    if (flagArithmetiсProgress)
+                    {
+                        d = int.Parse(s[j + 1].ToString()) - int.Parse(s[j].ToString());
+                        flagArithmetiсProgress = false;
+                    }
+                    else if (d != int.Parse(s[j + 1].ToString()) - int.Parse(s[j].ToString()))
+                        flag = false;
+                }
+
+                if (flag)
+                    sum += i;
+            }
+
+            Console.WriteLine(sum);
         }
     }
 }

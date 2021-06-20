@@ -66,5 +66,12 @@ namespace PrepareForEGE_MishaPolykovsky
                     Console.WriteLine($"{i} {String.Join(" ", count)}");
             }
         }
+
+        internal static void Solution_27()
+        {
+            string s = File.ReadAllText(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Solutions\PrepareForEGE_MishaPolykovsky\Others_Solutions\Решения из книги Евич\Вариант 9\27\27b.txt");
+
+
+        } //написать
     }
 }

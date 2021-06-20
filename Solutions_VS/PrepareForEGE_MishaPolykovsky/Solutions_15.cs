@@ -9,6 +9,27 @@ namespace PrepareForEGE_MishaPolykovsky
         internal static void Start(object use = null, ISolution.StartupOptions startupOptions = ISolution.StartupOptions.Include) =>
             ISolution.Start(new Solutions_15(), use, startupOptions);
 
+        internal static void Solution_84()
+        {
+            for (int aStart = 3; aStart < 60; aStart++)
+                for (int aEnd = aStart + 1; aEnd < 60; aEnd++)
+                {
+                    bool flag = true;
+                    for (int x = -1000; x < 1000; x++)
+                        if ((!Enumerable.Range(23, 36).ToList().Contains(x) ||
+                          !Enumerable.Range(aStart, aEnd - aStart + 1).ToList().Contains(x) ||
+                          Enumerable.Range(10, 30).ToList().Contains(x) &&
+                          Enumerable.Range(aStart, aEnd - aStart + 1).ToList().Contains(x)) == false)
+                            flag = false;
+
+                    if (flag && (aStart == 5 && aEnd == 20 ||
+                        aStart == 20 && aEnd == 40 ||
+                        aStart == 40 && aEnd == 55 ||
+                        aStart == 5 && aEnd == 55))
+                        Console.WriteLine($"{aStart} {aEnd}");
+                }
+        }
+
         internal static void Solution_120()
         {
             int a;
