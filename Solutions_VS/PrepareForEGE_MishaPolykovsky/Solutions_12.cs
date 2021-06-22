@@ -106,6 +106,88 @@ namespace PrepareForEGE_MishaPolykovsky
             Console.WriteLine(s.Count(str => str == '0')); //черная магия линки:))
         }
 
+        internal static void Solution_233()
+        {
+            static int F(string s)
+            {
+                int way1 = 0, way2 = 0;
+
+                if (s.Count(x => x == '1') < 23)
+                    way1 = F(s + "1");
+
+                if (s.Count(x => x == '2') < 5)
+                    way2 = F(s + "2");
+
+                if (s.Count(x => x == '1') == 23 && 
+                    s.Count(x => x == '2') == 5)
+                {
+                    while (s.Contains("11"))
+                    {
+                        if (s.Contains("112"))
+                            s = new Regex("112").Replace(s, "5", 1);
+                        else
+                            s = new Regex("11").Replace(s, "3", 1);
+                    }
+
+                    return s.Select(x => int.Parse(x.ToString())).Sum();
+                }
+
+                return Math.Max(way1, way2);
+            }
+
+            Console.WriteLine(F(""));
+        }
+
+        internal static void Solution_234()
+        {
+            static int F(string s)
+            {
+                int f1 = 0, f2 = 0;
+
+                if (s.Count(x => x == '1') < 25)
+                    f1 = F(s + "1");
+
+                if (s.Count(x => x == '2') < 8)
+                    f2 = F(s + "2");
+
+                if (s.Count(x => x == '1') == 25 && s.Count(x => x == '2') == 8)
+                {
+                    while (s.Contains("11"))
+                    {
+                        if (s.Contains("112"))
+                            s = new Regex("112").Replace(s, "5", 1);
+                        else
+                            s = new Regex("11").Replace(s, "7", 1);
+                    }
+
+                    return s.Select(x => int.Parse(x.ToString())).Sum();
+                }
+
+                return Math.Max(f1, f2);
+            }
+
+            Console.WriteLine(F(""));
+        }
+
+        internal static void Solution_235()
+        {
+            string s = ">" + String.Join("", Enumerable.Repeat("1", 10)) + String.Join("", Enumerable.Repeat("2", 20)) + String.Join("", Enumerable.Repeat("3", 30));
+
+            while (s.Contains(">1") || s.Contains(">2") || s.Contains(">3"))
+            {
+                if (s.Contains(">1"))
+                    s = new Regex(">1").Replace(s, "22>", 1);
+
+                if (s.Contains(">2"))
+                    s = new Regex(">2").Replace(s, "2>", 1);
+
+                if (s.Contains(">3"))
+                    s = new Regex(">3").Replace(s, "1>", 1);
+            }
+
+            Console.WriteLine(s.Select(x => x != '>' ? int.Parse(x.ToString()) : 0).Sum());
+        }
+
         internal static void Solution_253()
         {
             static string Temp(string s)
