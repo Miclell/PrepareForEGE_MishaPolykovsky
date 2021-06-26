@@ -115,11 +115,11 @@ namespace PrepareForEGE_MishaPolykovsky
 
         internal static void Solution_9()
         {
-            int[] s = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\27data\9\27-9a.txt")
-                .Select(x => int.Parse(x)).ToArray();
-
-            //int[] s = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\27data\9\27-9b.txt")
+            //int[] s = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\27data\9\27-9a.txt")
             //    .Select(x => int.Parse(x)).ToArray();
+
+            int[] s = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\27data\9\27-9b.txt")
+                .Select(x => int.Parse(x)).ToArray();
 
             int minA = s[1], res = Int32.MaxValue;
             for (int i = 7; i < s.Length; i++)
@@ -130,6 +130,20 @@ namespace PrepareForEGE_MishaPolykovsky
                 int temp = s[i] * minA;
                 if (temp % 2 != 0 && temp < res)
                     res = temp;
+            }
+
+            Console.WriteLine(res);
+
+            res = Int32.MaxValue;
+            for (int i = 0; i < s.Length; i++)
+            {
+                for (int j = i + 6; j < s.Length; j++)
+                {
+                    int temp = s[i] * s[j];
+
+                    if (temp % 2 != 0 && temp < res)
+                        res = temp;
+                }
             }
 
             Console.WriteLine(res);
@@ -363,6 +377,30 @@ namespace PrepareForEGE_MishaPolykovsky
         }
 
         internal static void Solution_60()
+        {
+            //string[] s = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\27data\60\27.txt");
+            //string[] s = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\27data\60\27-60a.txt");
+            string[] s = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\27data\60\27-60b.txt");
+
+            int[] ss = s.Skip(1).Select(x => int.Parse(x.ToString())).ToArray();
+
+            List<int> rest = Enumerable.Repeat(0, 25).ToList();
+            for (int i = 0; i < ss.Length; i++)
+            {
+                List<int> restcopy = rest.ToList();
+                for (int j = 0; j < rest.Count; j++)
+                    if (rest[j] != 0)
+                        restcopy[(j + ss[i]) % 25] = Math.Max(restcopy[(j + ss[i]) % 25], rest[j] + ss[i]);
+
+                restcopy[ss[i] % 25] = Math.Max(restcopy[ss[i] % 25], ss[i]);
+
+                rest = restcopy;
+            }
+
+            Console.WriteLine(rest[0]);
+        }
+
+        internal static void Solution_600()
         {
             //string[] s = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\27data\60\27.txt");
             string[] s = File.ReadAllLines(@"D:\hem12\Documents\Документы Миша\Школьные предметы\ЕГЭ информатика\Задания ЕГЭ с Полякова\27data\60\27-60a.txt");
